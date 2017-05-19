@@ -1,0 +1,25 @@
+machine:
+  pre:
+    - sudo apt-get update; USE_PRECOMPILE=true sudo -E circleci-install php 7.0.4
+
+  php:
+    version: 7.0.4
+
+dependencies:
+  override:
+    - composer install --no-interaction
+test:
+  pre:
+    - "vendor/laravel/dusk/bin/chromedriver-linux":
+        background: true
+    - cp .env.example .env
+    - "php artisan serve":
+        background: true
+
+  override:
+    # phpcs circleci status
+    - ./vendor/bin/phpcs -n --standard=phpcs.xml
+    # phpmd
+    - ./vendor/bin/phpmd app text phpmd.xml
+    # phpunit
+    - ./vendor/bin/phpunit
