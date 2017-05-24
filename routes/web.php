@@ -19,3 +19,11 @@ Route::get('/', function () {
 Route::get('/img/{path}', function (Illuminate\Http\Request $request, $path) {
     return app('glide')->getImageResponse($path, $request->all());
 })->where('path', '.*');
+
+Route::group(['namespace' => 'Frontend'], function () {
+    Route::resource('user', 'UserController');
+});
+
+Route::get('a', function () {
+    return view('layouts.frontend');
+});

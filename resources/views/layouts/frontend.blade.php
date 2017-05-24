@@ -52,7 +52,7 @@
     @include('frontend._partials.header-mobile')
     {{-- end Responsive Header --}}
 
-    <div class="header-spacer"></div>
+    <div class="header-spacer header-spacer-small"></div>
 
     {{-- Main content --}}
     @yield('main')
